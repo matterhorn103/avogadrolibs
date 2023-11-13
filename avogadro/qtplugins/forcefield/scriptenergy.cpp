@@ -126,7 +126,7 @@ Real ScriptEnergy::value(const Eigen::VectorXd& x)
   double energy = 0.0;
   for (auto line : lines) {
     if (line.startsWith("AvogadroEnergy:")) {
-      QStringList items = line.split(" ", QString::SkipEmptyParts);
+      QStringList items = line.split(" ", Qt::SkipEmptyParts);
       if (items.size() > 1) {
         energy = items[1].toDouble();
         break;
@@ -167,7 +167,7 @@ void ScriptEnergy::gradient(const Eigen::VectorXd& x, Eigen::VectorXd& grad)
     }
 
     if (readingGrad) {
-      QStringList items = line.split(" ", QString::SkipEmptyParts);
+      QStringList items = line.split(" ", Qt::SkipEmptyParts);
       if (items.size() == 3) {
         grad[i] = items[0].toDouble();
         grad[i + 1] = items[1].toDouble();
@@ -367,7 +367,7 @@ void ScriptEnergy::processElementString(const QString& str)
   QString str2(str);
   str2.replace(',', ' ');
   // then split on whitespace
-  QStringList strList = str2.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+  QStringList strList = str2.split(QRegExp("\\s+"), Qt::SkipEmptyParts);
   foreach (QString sstr, strList) {
     // these should be numbers or ranges (e.g., 1-84)
     if (sstr.contains('-')) {
