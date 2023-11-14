@@ -13,7 +13,7 @@
 #include <avogadro/rendering/glrenderer.h>
 
 #include <QPointer>
-#include <QOpenGLWidget>
+#include <QtOpenGLWidgets/QOpenGLWidget>
 
 class QTimer;
 
