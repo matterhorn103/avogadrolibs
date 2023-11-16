@@ -1,4 +1,6 @@
-find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+if(QT_VERSION EQUAL 6)
+  find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+endif()
 
 avogadro_plugin(ResetView
   "Manipulate the view camera."
@@ -9,7 +11,13 @@ avogadro_plugin(ResetView
   ""
 )
 
-target_link_libraries(ResetView PRIVATE Qt6::OpenGLWidgets Avogadro::Rendering Avogadro::QtOpenGL)
+target_link_libraries(ResetView PRIVATE Avogadro::Rendering Avogadro::QtOpenGL)
+
+if(QT_VERSION EQUAL 6)
+  target_link_libraries(ResetView
+    PRIVATE
+      Qt6::OpenGLWidgets)
+endif()
 
 target_include_directories(ResetView
   PRIVATE
