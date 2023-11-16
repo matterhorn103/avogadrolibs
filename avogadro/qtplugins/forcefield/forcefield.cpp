@@ -11,7 +11,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
 
-#include <QtGui/QAction>
+#include <QAction>
 #include <QtWidgets/QMessageBox>
 
 #include <QMutex>

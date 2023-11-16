@@ -1,3 +1,9 @@
+if(QT_VERSION EQUAL 6)
+  find_package(Qt6 COMPONENTS Gui REQUIRED)
+else()
+  find_package(Qt5 COMPONENTS Widgets REQUIRED)
+endif()
+
 set(aligntool_srcs
   aligntool.cpp
 )
@@ -20,6 +26,12 @@ avogadro_plugin(AlignTool
 )
 
 target_link_libraries(AlignTool PRIVATE Avogadro::Rendering Avogadro::QtOpenGL)
+
+if(QT_VERSION EQUAL 6)
+  target_link_libraries(AlignTool PRIVATE Qt6::Gui)
+else()
+  target_link_libraries(AlignTool PRIVATE Qt5::Widgets)
+endif()
 
 target_include_directories(AlignTool
   PRIVATE
