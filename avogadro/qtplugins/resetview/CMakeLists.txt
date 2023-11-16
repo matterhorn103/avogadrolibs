@@ -1,3 +1,5 @@
+find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+
 avogadro_plugin(ResetView
   "Manipulate the view camera."
   ExtensionPlugin
@@ -7,4 +9,9 @@ avogadro_plugin(ResetView
   ""
 )
 
-target_link_libraries(ResetView PRIVATE Avogadro::QtOpenGL)
+target_link_libraries(ResetView PRIVATE Qt6::OpenGLWidgets Avogadro::Rendering Avogadro::QtOpenGL)
+
+target_include_directories(ResetView
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR}/../../rendering
+    ${CMAKE_CURRENT_BINARY_DIR}/../../qtopengl)

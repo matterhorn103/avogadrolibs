@@ -19,4 +19,9 @@ avogadro_plugin(AlignTool
   "${aligntool_rcs}"
 )
 
-target_link_libraries(AlignTool PRIVATE Avogadro::QtOpenGL)
+target_link_libraries(AlignTool PRIVATE Avogadro::Rendering Avogadro::QtOpenGL)
+
+target_include_directories(AlignTool
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR}/../../rendering)
+

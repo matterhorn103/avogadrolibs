@@ -21,4 +21,9 @@ avogadro_plugin(TemplateTool
   "${template_rcs}"
 )
 
-target_link_libraries(TemplateTool LINK_PRIVATE Avogadro::QtOpenGL)
+target_link_libraries(TemplateTool LINK_PRIVATE Avogadro::QtOpenGL Avogadro::Rendering)
+
+target_include_directories(TemplateTool
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR}/../../rendering
+    ${CMAKE_CURRENT_BINARY_DIR}/../../qtopengl)
