@@ -1,5 +1,5 @@
 find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
+find_package(LibEpoxy REQUIRED)
 
 avogadro_plugin(OverlayAxes
   "Reference Axes Overlay"
@@ -10,4 +10,4 @@ avogadro_plugin(OverlayAxes
   "")
 
 target_link_libraries(OverlayAxes
-  PRIVATE Avogadro::Rendering Avogadro::QtOpenGL OpenGL::GL GLEW::GLEW)
+  PRIVATE Avogadro::Rendering Avogadro::QtOpenGL OpenGL::GL LibEpoxy::epoxy)
