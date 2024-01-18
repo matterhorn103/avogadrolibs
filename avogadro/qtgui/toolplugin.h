@@ -40,6 +40,9 @@ class AVOGADROQTGUI_EXPORT ToolPlugin : public QObject
 {
   Q_OBJECT
 
+private:
+  static bool darkTheme;
+
 public:
   explicit ToolPlugin(QObject* parent = nullptr);
   ~ToolPlugin() override;
@@ -63,6 +66,11 @@ public:
    * @return The QAction that will cause this tool to become active.
    */
   virtual QAction* activateAction() const = 0;
+
+  /**
+   * Set the tool icon (based on dark / light theme).
+   */
+  virtual void setIcon(bool darkTheme = false) = 0;
 
   /**
    * @return A QWidget that will be displayed to the user while this tool is
