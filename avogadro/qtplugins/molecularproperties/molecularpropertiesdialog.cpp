@@ -37,6 +37,10 @@ MolecularPropertiesDialog::MolecularPropertiesDialog(QtGui::Molecule* mol,
   connect(m_ui->buttonBox, SIGNAL(clicked(QAbstractButton*)), this,
           SLOT(buttonClicked(QAbstractButton*)));
 
+  // Create a connection for charge spin box value changes
+  connect(m_ui->chargeSpinBox, SIGNAL(valueChanged(int)), this,
+          SLOT(chargeChanged(int)));
+
   m_network = new QNetworkAccessManager(this);
   connect(m_network, SIGNAL(finished(QNetworkReply*)), this,
           SLOT(replyFinished(QNetworkReply*)));
@@ -75,6 +79,8 @@ void MolecularPropertiesDialog::updateLabels()
     updateName();
     m_ui->atomCountLabel->setText(QString::number(m_molecule->atomCount()));
     m_ui->bondCountLabel->setText(QString::number(m_molecule->bondCount()));
+    m_ui->chargeSpinBox->setValue(m_molecule->totalCharge());
+    m_ui->multiplicitySpinBox->setValue(m_molecule->totalSpinMultiplicity());
   } else {
     m_ui->molMassLabel->clear();
     m_ui->formulaLabel->clear();
@@ -182,6 +188,13 @@ void MolecularPropertiesDialog::updateFormulaLabel()
   }
 
   m_ui->formulaLabel->setText(formula);
+}
+
+void MolecularPropertiesDialog::chargeChanged(int value)
+{
+  // Update the totalCharge value in the molecule
+  if (m_molecule)
+    m_molecule->setTotalCharge(value);
 }
 
 void MolecularPropertiesDialog::moleculeDestroyed()

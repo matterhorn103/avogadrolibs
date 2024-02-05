@@ -57,6 +57,7 @@ private slots:
   void updateLabels();
   void updateMassLabel();
   void updateFormulaLabel();
+  void chargeChanged(int value);
   void moleculeDestroyed();
   void replyFinished(QNetworkReply*);
   void copy();
