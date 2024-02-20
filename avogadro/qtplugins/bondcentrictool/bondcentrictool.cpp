@@ -141,6 +141,11 @@ void BondCentricTool::setIcon(bool darkTheme)
     m_activateAction->setIcon(QIcon(":/icons/bondcentric_light.svg"));
 }
 
+void BondCentricTool::setShortcut(QWidget)
+{
+    setShortcut(QKeySequence("Alt+7"));
+}
+
 QWidget* BondCentricTool::toolWidget() const
 {
   return nullptr;

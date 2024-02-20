@@ -9,6 +9,8 @@
 #include "avogadroqtguiexport.h"
 
 #include <QtCore/QObject>
+#include <QShortcut>
+#include <QtGui/QKeySequence>
 
 class QAction;
 class QKeyEvent;
@@ -63,6 +65,11 @@ public:
    * @return The QAction that will cause this tool to become active.
    */
   virtual QAction* activateAction() const = 0;
+
+  /**
+   * Method to set the shortcut key sequence
+   */
+  virtual void setShortcut(const QKeySequence &keySequence, QWidget parentWidget) = 0;
 
   /**
    * Set the tool icon (based on dark / light theme).
@@ -144,6 +151,12 @@ signals:
    */
   void requestActiveDisplayTypes(QStringList displayTypes);
 
+  /**
+   * Emitted when shortcut is pressed
+   * redrawn.
+   */
+  void shortcutActivated();
+
 public slots:
   /**
    * Called when the current molecule changes.
@@ -166,6 +179,22 @@ public slots:
    * Set the GLRenderer used by the tool.
    */
   virtual void setGLRenderer(Rendering::GLRenderer*) {}
+
+  /**
+   * Slot to handle shortcut.
+   */
+  virtual void handleShortcutActivated()
+  {
+    // By default, just trigger the activate action
+    QAction* action = activateAction();
+    if (action) {
+        action->trigger();
+    }
+  }
+
+protected:
+    QShortcut *shortcut;
+
 };
 
 /**

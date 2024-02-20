@@ -11,6 +11,7 @@ ToolPlugin::ToolPlugin(QObject* parent_) : QObject(parent_) {}
 
 ToolPlugin::~ToolPlugin() {}
 
+
 QUndoCommand* ToolPlugin::mousePressEvent(QMouseEvent*)
 {
   return nullptr;
