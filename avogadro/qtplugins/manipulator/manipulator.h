@@ -18,7 +18,22 @@
 namespace Avogadro {
 namespace QtPlugins {
 
+namespace Ui {
 class ManipulateWidget;
+}
+
+class ManipulateWidget : public QWidget
+{
+  Q_OBJECT
+
+public:
+  explicit ManipulateWidget(QWidget* parent = nullptr);
+  ~ManipulateWidget();
+  void setAtomSelectionBox(size_t max);
+
+private:
+  Ui::ManipulateWidget* m_ui;
+};
 
 /**
  * @class Manipulator manipulator.h

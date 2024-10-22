@@ -31,14 +31,24 @@ using QtGui::RWAtom;
 
 #define ROTATION_SPEED 0.5
 
-class ManipulateWidget : public QWidget, public Ui::ManipulateWidget
+ManipulateWidget::ManipulateWidget(QWidget* parent)
+  : QWidget(parent), m_ui(new Ui::ManipulateWidget)
 {
-public:
-  ManipulateWidget(QWidget* parent = nullptr) : QWidget(parent)
-  {
-    setupUi(this);
+  m_ui->setupUi(this);
+}
+
+ManipulateWidget::~ManipulateWidget()
+{
+  delete m_ui;
+}
+
+void ManipulateWidget::setAtomSelectionBox(size_t max)
+{
+  m_ui->atomSelectionBox->clear();
+  for (size_t i = 0; i < max; ++i) {
+    m_ui->atomSelectionBox->addItem(QString::number(i + 1));
   }
-};
+}
 
 Manipulator::Manipulator(QObject* parent_)
   : QtGui::ToolPlugin(parent_), m_activateAction(new QAction(this)),
@@ -54,6 +64,7 @@ Manipulator::Manipulator(QObject* parent_)
   setIcon();
   connect(m_toolWidget->buttonBox, SIGNAL(clicked(QAbstractButton*)), this,
           SLOT(buttonClicked(QAbstractButton*)));
+  m_toolWidget->setAtomSelectionBox(m_molecule->atomCount());
 }
 
 Manipulator::~Manipulator() {}
@@ -111,22 +122,31 @@ void Manipulator::buttonClicked(QAbstractButton* button)
                    m_toolWidget->zRotateSpinBox->value());
   Vector3 center(0.0, 0.0, 0.0);
 
-  // Check if we're rotating around the origin or the centroid
-  if (m_toolWidget->rotateComboBox->currentIndex() == 1) {
-    // center of selected atoms
-    unsigned long selectedAtomCount = 0;
-    for (Index i = 0; i < m_molecule->atomCount(); ++i) {
-      if (!m_molecule->atomSelected(i))
-        continue;
+  // Check to see what we're rotating around (the origin, the center of the
+  // selection, or a specific atom)
+  switch m_toolWidget->centerSelectionBox->currentIndex() {
+    case 0:
+      // Described as origin in UI
+      // Was previously not wrt actual origin but to center of all atoms for some reason?
+      center = m_molecule->molecule().centerOfGeometry();
+    
+    case 1:
+      // Center of selected atoms
+      unsigned long selectedAtomCount = 0;
+      for (Index i = 0; i < m_molecule->atomCount(); ++i) {
+        if (!m_molecule->atomSelected(i))
+          continue;
 
-      center += m_molecule->atomPosition3d(i);
-      selectedAtomCount++;
-    }
-    if (selectedAtomCount > 0)
-      center /= selectedAtomCount;
+        center += m_molecule->atomPosition3d(i);
+        selectedAtomCount++;
+      }
+      if (selectedAtomCount > 0)
+        center /= selectedAtomCount;
 
-  } else {
-    center = m_molecule->molecule().centerOfGeometry();
+    case 2:
+      // Specific atom as center
+      center_index = m_toolWidget->atomSelectionBox->currentIndex();
+      center = m_molecule>atomPosition3d(center_index);
   }
 
   // Settings are in degrees
