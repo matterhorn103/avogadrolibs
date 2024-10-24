@@ -62,7 +62,7 @@ jobs:
           }
         - {
             name: "Ubuntu Address Sanitizer", artifact: "",
-            os: ubuntu-20.04,
+            os: ubuntu-22.04,
             cc: "gcc", cxx: "g++",
             build_type: "asan",
             cmake_flags: "-G Ninja -DENABLE_TESTING=ON -DTEST_QTGL=OFF -USE_SYSTEM_ZLIB=ON",
@@ -70,7 +70,7 @@ jobs:
           }
         - {
             name: "Ubuntu Undefined Behavior Sanitizer", artifact: "",
-            os: ubuntu-20.04,
+            os: ubuntu-22.04,
             cc: "gcc", cxx: "g++",
             build_type: "ubsan",
             cmake_flags: "-G Ninja -DENABLE_TESTING=ON -DTEST_QTGL=OFF -USE_SYSTEM_ZLIB=ON",
@@ -212,7 +212,7 @@ jobs:
         done
 
     - name: Run tests
-      if: matrix.config.os == 'ubuntu-20.04'
+      if: matrix.config.os == 'ubuntu-22.04'
       shell: cmake -P {0}
       run: |
         include(ProcessorCount)
@@ -287,7 +287,7 @@ jobs:
         OPENSSL_ROOT_DIR: ${{ matrix.config.ssl_env }}
 
     - name: AppImage
-      if: matrix.config.os == 'ubuntu-20.04' && matrix.config.build_type == 'Release'
+      if: matrix.config.os == 'ubuntu-22.04'
       shell: bash
       run: |
         mkdir appdir
