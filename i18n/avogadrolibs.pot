@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Avogadro 1.99.0\n"
 "Report-Msgid-Bugs-To: avogadro-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2024-12-15 02:48+0000\n"
+"POT-Creation-Date: 2024-12-22 02:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1316,7 +1316,7 @@ msgstr ""
 msgid "Adjust Hydrogens"
 msgstr ""
 
-#: qtgui/rwmolecule.cpp:143
+#: qtgui/rwmolecule.cpp:143 qtplugins/alchemy/alchemy.cpp:74
 msgid "Change Elements"
 msgstr ""
 
@@ -1476,6 +1476,36 @@ msgstr ""
 
 #: qtplugins/3dmol/3dmol.h:42
 msgid "ThreeDMol"
+msgstr ""
+
+#: qtplugins/alchemy/alchemy.cpp:25
+msgid "Change Elements…"
+msgstr ""
+
+#: qtplugins/alchemy/alchemy.cpp:42 qtplugins/bonding/bonding.cpp:61
+#: qtplugins/centroid/centroid.cpp:44
+#: qtplugins/coordinateeditor/coordinateeditor.cpp:34
+#: qtplugins/customelements/customelements.cpp:42
+#: qtplugins/hydrogens/hydrogens.cpp:59 qtplugins/insertdna/insertdna.cpp:62
+#: qtplugins/insertfragment/insertfragment.cpp:60
+#: qtplugins/lineformatinput/lineformatinput.cpp:61
+msgid "&Build"
+msgstr ""
+
+#. i18n: file: qtplugins/editor/editortoolwidget.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: qtplugins/templatetool/templatetoolwidget.ui:48
+#. i18n: ectx: property (text), widget (QLabel, elementLabel)
+#: qtplugins/alchemy/alchemy.cpp:74 :478 rc.cpp:1923
+msgid "Element:"
+msgstr ""
+
+#: qtplugins/alchemy/alchemy.h:31
+msgid "Alchemy"
+msgstr ""
+
+#: qtplugins/alchemy/alchemy.h:35
+msgid "Change elements of atoms."
 msgstr ""
 
 #: qtplugins/aligntool/aligntool.cpp:49 qtplugins/aligntool/aligntool.cpp:92
@@ -1948,15 +1978,6 @@ msgstr ""
 
 #: qtplugins/bonding/bonding.cpp:32
 msgid "Bond Selected Atoms"
-msgstr ""
-
-#: qtplugins/bonding/bonding.cpp:61 qtplugins/centroid/centroid.cpp:44
-#: qtplugins/coordinateeditor/coordinateeditor.cpp:34
-#: qtplugins/customelements/customelements.cpp:42
-#: qtplugins/hydrogens/hydrogens.cpp:59 qtplugins/insertdna/insertdna.cpp:62
-#: qtplugins/insertfragment/insertfragment.cpp:60
-#: qtplugins/lineformatinput/lineformatinput.cpp:61
-msgid "&Build"
 msgstr ""
 
 #: qtplugins/bonding/bonding.cpp:61
@@ -5870,13 +5891,6 @@ msgstr ""
 #. i18n: file: qtplugins/crystal/volumescalingdialog.ui:58
 #. i18n: ectx: property (text), widget (QLabel, currentVolume)
 msgid "TextLabel"
-msgstr ""
-
-#. i18n: file: qtplugins/editor/editortoolwidget.ui:23
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: qtplugins/templatetool/templatetoolwidget.ui:48
-#. i18n: ectx: property (text), widget (QLabel, elementLabel)
-msgid "Element:"
 msgstr ""
 
 #. i18n: file: qtplugins/editor/editortoolwidget.ui:33
