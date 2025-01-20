@@ -127,16 +127,14 @@ jobs:
 
     - name: Configure
       run: |
-        if [ ! -d "${{ runner.workspace }}/build" ]; then mkdir "${{ runner.workspace }}/build"; fi
-        cd "${{ runner.workspace }}/build"
-        CC=${{matrix.config.cc}} CXX=${{matrix.config.cxx}} cmake $GITHUB_WORKSPACE/openchemistry ${{env.FEATURES}} -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}} ${{matrix.config.cmake_flags}}
+        if [ ! -d "${{ github.workspace }}/build" ]; then mkdir "${{ github.workspace }}/build"; fi
+        CC=${{ matrix.config.cc }} CXX=${{ matrix.config.cxx }} cmake -S ${{ github.workspace }}/openchemistry -D ${{ github.workspace }}/build ${{ env.FEATURES }} -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} ${{ matrix.config.cmake_flags }}
       shell: bash
 
     - name: Build
       run: |
-        CC=${{matrix.config.cc}} CXX=${{matrix.config.cxx}} cmake --build . --config ${{matrix.config.build_type}} ${{matrix.config.build_flags}}
+        CC=${{ matrix.config.cc }} CXX=${{ matrix.config.cxx }} cmake --build ${{ github.workspace }}/build --config ${{ matrix.config.build_type }} ${{ matrix.config.build_flags }}
       shell: bash
-      working-directory: ${{ runner.workspace }}/build
 
     - name: Run tests
       if: (matrix.config.build_type == 'asan') || (matrix.config.build_type == 'ubsan')
@@ -148,7 +146,7 @@ jobs:
         set(ENV{ASAN_OPTIONS} "new_delete_type_mismatch=0")
         execute_process(
           COMMAND ctest -j ${N}
-          WORKING_DIRECTORY ${{ runner.workspace }}/build/avogadrolibs
+          WORKING_DIRECTORY ${{ github.workspace }}/build/avogadrolibs
           RESULT_VARIABLE result
         )
         if (NOT result EQUAL 0)
@@ -172,17 +170,17 @@ jobs:
         ./linuxdeploy-x86_64.AppImage -d appdir/usr/share/applications/*.desktop --plugin qt --appdir appdir
         # add the custom AppRun
         rm appdir/AppRun
-        cp ../avogadrolibs/openchemistry/avogadrolibs/scripts/AppImage.sh appdir/AppRun
+        cp ${{ github.workspace }}/openchemistry/avogadrolibs/scripts/AppImage.sh appdir/AppRun
         chmod a+x appdir/AppRun
         ./appimagetool-x86_64.AppImage appdir
         mv Avogadro*.AppImage avogadroapp/Avogadro2-x86_64.AppImage # for upload
-      working-directory: ${{ runner.workspace }}/build
+      working-directory: ${{ github.workspace }}/build
 
     - name: Upload
       if: matrix.config.artifact != 0
       uses: actions/upload-artifact@v4
       with:
-        path: ${{ runner.workspace }}/build/avogadroapp/Avogadro2*.*
+        path: ${{ github.workspace }}/build/avogadroapp/Avogadro2*.*
         name: ${{ matrix.config.artifact }}
 
     - name: Setup tmate session
