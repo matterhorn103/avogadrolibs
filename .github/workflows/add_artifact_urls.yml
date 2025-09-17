@@ -1,7 +1,7 @@
 name: add artifact links to pull request
 on:
   workflow_run:
-    workflows: ['Qt5 Build Matrix']
+    workflows: ['Windows Build Matrix', 'macOS Build Matrix', 'Linux Build Matrix', 'Build Flatpak']
     types: [completed]
 
 jobs:
