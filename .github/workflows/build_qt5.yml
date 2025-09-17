@@ -28,7 +28,7 @@ jobs:
       matrix:
         config:
         - {
-            name: "macOS Clang", artifact: "macOS.dmg",
+            name: "macOS Clang", artifact: "",
             os: macos-13,
             cc: "clang", cxx: "clang++",
             build_type: "Release",
@@ -36,7 +36,7 @@ jobs:
             cpack_flags: "-G DragNDrop",
           }
         - {
-            name: "Windows Latest MSVC", artifact: "Win64.exe",
+            name: "Windows Latest MSVC", artifact: "",
             os: windows-latest,
             cc: "cl", cxx: "cl",
             build_type: "Release",

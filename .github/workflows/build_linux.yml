@@ -1,18 +1,16 @@
 name: Linux Build Matrix
-# Many thanks to Cristian Adam for examples
-# e.g. https://github.com/cristianadam/HelloWorld/blob/master/.github/workflows/build_cmake.yml
-# https://cristianadam.eu/20191222/using-github-actions-with-c-plus-plus-and-cmake/
 
 on: [push, pull_request, workflow_dispatch]
 
 env:
   QT_VERSION: 6.8.1
   FEATURES: -DUSE_VTK=ON -DBUILD_GPL_PLUGINS=ON -DBUILD_MOLEQUEUE=OFF -DWITH_COORDGEN=OFF -DQT_VERSION=6
-
+  
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Doesn't include the Flatpak, which is built by its own workflow
 jobs:
   build:
     name: ${{ matrix.config.name }}
@@ -36,7 +34,7 @@ jobs:
         #    cmake_flags: "-G Ninja -DUSE_SYSTEM_EIGEN=TRUE",
         #  }
         - {
-            name: "AppImage x86", artifact: "Avogadro2-x86_64.AppImage",
+            name: "AppImage x86", artifact: "Avogadro2-linux-x86_64.AppImage",
             os: ubuntu-22.04,
             cc: "gcc", cxx: "g++",
             build_type: "Release",
@@ -183,7 +181,7 @@ jobs:
       if: matrix.config.artifact != 0
       uses: actions/upload-artifact@v4
       with:
-        path: ${{ runner.workspace }}/build/avogadroapp/Avogadro2*.*
+        path: ${{ runner.workspace }}/build/avogadroapp/*.*
         name: ${{ matrix.config.artifact }}
 
     - name: Setup tmate session

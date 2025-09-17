@@ -1,4 +1,4 @@
-name: CMake Windows Build
+name: Windows Build Matrix
 # Many thanks to Cristian Adam for examples
 # e.g. https://github.com/cristianadam/HelloWorld/blob/master/.github/workflows/build_cmake.yml
 # https://cristianadam.eu/20191222/using-github-actions-with-c-plus-plus-and-cmake/
@@ -26,7 +26,7 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows Latest MSVC", artifact: "Win64.exe",
+            name: "Windows", artifact: "Avogadro2-windows-x86_64.exe",
             os: windows-latest,
             cc: "cl", cxx: "cl",
             build_type: "Release",
@@ -144,7 +144,7 @@ jobs:
       id: upload-artifact
       uses: actions/upload-artifact@v4
       with:
-        path: ${{ runner.workspace }}/build/avogadroapp/Avogadro*.*
+        path: ${{ runner.workspace }}/build/avogadroapp/*.*
         name: ${{ matrix.config.artifact }}
 
     - name: Sign Windows release
@@ -164,8 +164,8 @@ jobs:
       id: upload-signed-artifact
       uses: actions/upload-artifact@v4
       with:
-        path: ${{ runner.workspace }}/build/Avogadro2*.*
-        name: 'Win64-signed.exe'
+        path: ${{ runner.workspace }}/build/*.*
+        name: "Avogadro2-windows-x86_64-signed.exe"
 
     - name: Setup tmate session
       if: failure()
